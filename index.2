@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#fff4f1">
+<title>给你的一颗小星球</title>
+<style>
+:root{--pink:#f6b9c5;--rose:#d97891;--cream:#fff8ef;--ink:#684d55;--gold:#e7c68c}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:#fff8f4;color:var(--ink);font-family:"PingFang SC","Microsoft YaHei",system-ui,sans-serif;overflow-x:hidden}
+button{font:inherit;cursor:pointer;border:0}a{color:inherit}
+.progress-track{position:fixed;top:0;left:0;width:100%;height:3px;z-index:20;background:#f8e5e6}.progress-track i{display:block;width:0;height:100%;background:linear-gradient(90deg,#d98da0,#e8c78a);transition:width .1s}
+#stars{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+.spark{position:absolute;color:#e8b8c2;opacity:.65;animation:twinkle 3.5s ease-in-out infinite}
+@keyframes twinkle{0%,100%{transform:scale(.7) rotate(0);opacity:.25}50%{transform:scale(1.2) rotate(18deg);opacity:.9}}
+.wrap{position:relative;z-index:1;max-width:760px;margin:auto;padding:0 19px}
+.hero{min-height:100svh;display:flex;align-items:center;justify-content:center;padding:35px 0 55px;text-align:center;position:relative;overflow:hidden;background:radial-gradient(ellipse at 50% 38%,#fff 0,#fff7f4 45%,#ffe9e9 100%)}
+.hero:before{content:"";position:absolute;width:90vw;height:90vw;max-width:650px;max-height:650px;border-radius:50%;background:radial-gradient(circle,#ffe5e8 0,#fff0e9 48%,transparent 70%);z-index:-1}
+.hero-glow{position:absolute;width:115vw;height:115vw;max-width:760px;max-height:760px;border-radius:50%;background:radial-gradient(circle,#ffe0e7 0,#ffeef0 42%,transparent 70%);filter:blur(4px);animation:glowPulse 6s ease-in-out infinite;z-index:-1}
+@keyframes glowPulse{50%{transform:scale(1.08);opacity:.72}}
+.hero-content{width:100%;animation:heroIn 1s ease both}
+@keyframes heroIn{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+.hero-eyebrow{font-family:Georgia,"Songti SC",serif;color:#b78a93;font-size:17px;letter-spacing:5px;margin-bottom:7px}
+.hero h1 em{font-style:normal;background:linear-gradient(100deg,#b66e86,#e2a1a8,#a66d84);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero .sub{margin-top:13px}
+.photo-frame{width:min(78vw,340px);margin:0 auto 22px;padding:9px 9px 15px;background:#fff;border-radius:18px;box-shadow:0 20px 55px #c88e8e38;transform:rotate(-1.5deg);position:relative;animation:photoFloat 5s ease-in-out infinite}
+@keyframes photoFloat{50%{transform:translateY(-8px) rotate(1deg)}}
+.photo-frame:before,.photo-frame:after{content:"✦";position:absolute;color:#e9c47d;font-size:26px}
+.photo-frame:before{top:-17px;left:-14px}.photo-frame:after{right:-13px;bottom:22px}
+.photo-frame img{display:block;width:100%;height:min(58vh,490px);object-fit:cover;object-position:center 43%;border-radius:11px;filter:brightness(1.035) saturate(1.05) contrast(1.02);box-shadow:0 5px 18px #8c5d5d18}
+.photo-sticker{position:absolute;z-index:2;display:grid;place-items:center;border-radius:50%;background:#fffaf2;color:#cf8c9b;box-shadow:0 7px 20px #9b68752b}
+.sticker-one{width:46px;height:46px;right:-19px;top:28px;font-size:25px;transform:rotate(12deg)}
+.sticker-two{width:36px;height:36px;left:-17px;bottom:72px;font-size:20px;color:#d7b46e}
+.photo-caption{font-family:Georgia,"Songti SC",serif;font-size:20px;color:#8a6570;padding-top:12px}
+.kicker{font-size:11px;letter-spacing:4px;color:#bd8b91;margin-bottom:17px}
+.hero h1{font-family:Georgia,"Songti SC",serif;font-size:clamp(34px,8vw,58px);line-height:1.2;font-weight:500;margin:0 0 12px;color:#805968}
+.hero .sub{font-size:14px;letter-spacing:2px;color:#b18a8d;margin-bottom:24px}
+.introline{font-size:14px;line-height:1.9;color:#a78389;margin:15px auto 23px;max-width:320px}
+.pill{background:linear-gradient(135deg,#e99eaf,#d9829a);color:white;border-radius:99px;padding:13px 24px;box-shadow:0 9px 22px #d9829a45;letter-spacing:1px;transition:.25s}
+.pill:active{transform:scale(.96)}
+.hero-button{padding:14px 29px}
+.hero-footnote{margin-top:17px;color:#c2a0a5;font-size:10px;letter-spacing:2px}
+.scrollhint{position:absolute;bottom:19px;left:0;right:0;font-size:11px;letter-spacing:3px;color:#c5a1a4;animation:bob 2s infinite}
+@keyframes bob{50%{transform:translateY(6px)}}
+@keyframes heartPop{to{transform:translateY(-55px) scale(1.7);opacity:0}}
+section{padding:72px 0;position:relative}section:nth-of-type(odd){background:linear-gradient(180deg,#fff8f5aa,transparent)}
+.section-tag{text-align:center;font-size:10px;letter-spacing:4px;color:#c69da3;margin-bottom:10px}
+h2{text-align:center;font-family:Georgia,"Songti SC",serif;font-weight:500;font-size:clamp(27px,6vw,37px);color:#805968;margin:0 0 13px}
+.lead{text-align:center;font-size:13px;line-height:1.9;color:#ae8d91;margin:0 auto 30px;max-width:430px}
+.panel{background:#fffdfb;border:1px solid #f7e8e5;border-radius:25px;padding:25px 21px;box-shadow:0 15px 45px #c98d9220}
+.animal-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.animal{background:linear-gradient(145deg,#fff9f5,#fff0f1);border:1px solid #f6e4e2;border-radius:19px;padding:17px 10px;text-align:center;color:#88656e;transition:.25s}
+.animal:active{transform:scale(.97)}.animal .emoji{font-size:39px;display:block;margin-bottom:8px}.animal b{font-size:14px;font-weight:600}.animal small{display:block;font-size:11px;color:#b39498;margin-top:5px}
+.note{margin-top:15px;min-height:58px;text-align:center;padding:17px 12px;border-radius:16px;background:#fff8f4;color:#a06f7c;font-size:14px;line-height:1.8}
+.letter-wrap{perspective:900px}
+.envelope{width:100%;max-width:430px;margin:auto;background:#f4cbd0;border-radius:18px;padding:22px 18px 20px;text-align:center;box-shadow:0 18px 35px #c98d9228;position:relative;overflow:hidden}
+.envelope:before{content:"";position:absolute;inset:0;background:linear-gradient(140deg,#ffffff38,transparent 48%);pointer-events:none}
+.seal{width:54px;height:54px;border-radius:50%;display:grid;place-items:center;margin:0 auto 12px;background:#fff5ed;color:#c57b8e;font-size:25px;box-shadow:0 5px 12px #ad728333}
+.envelope p{font-family:Georgia,"Songti SC",serif;color:#875f6c;font-size:17px;margin:0 0 13px}
+.letter{display:none;max-width:430px;margin:13px auto 0;background:#fffdf8;border:1px solid #f1e5d9;border-radius:17px;padding:23px 21px;line-height:2;font-size:14px;color:#856d6b;box-shadow:0 12px 30px #c98d9218;white-space:pre-line}
+.letter.show{display:block;animation:rise .55s ease both}
+@keyframes rise{from{opacity:0;transform:translateY(15px)}to{opacity:1;transform:none}}
+.weather-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.weather{background:#fff;border:1px solid #f4e6e4;border-radius:15px;padding:13px 3px;color:#98747a}
+.weather span{display:block;font-size:25px;margin-bottom:5px}.weather small{font-size:11px}
+.surprise{background:linear-gradient(145deg,#fff2ef,#fff9ef);border:1px solid #f3e4dc;border-radius:23px;padding:25px 20px;text-align:center}
+.gift{font-size:54px;display:block;margin-bottom:8px;animation:bobgift 2.4s infinite}
+@keyframes bobgift{50%{transform:translateY(-7px) rotate(4deg)}}
+.surprise p{font-family:Georgia,"Songti SC",serif;font-size:18px;color:#916d75;min-height:30px}
+.final{padding:78px 0 95px;text-align:center;background:radial-gradient(ellipse at center,#ffe8e9 0,#fff8f4 65%,transparent 100%)}
+.final .moon{font-size:46px;margin-bottom:14px}.final h2{font-size:31px}.final p{font-size:13px;line-height:2;color:#a78389;max-width:330px;margin:12px auto}
+footer{text-align:center;font-size:10px;letter-spacing:2px;color:#c4a3a4;padding:20px 0 35px}
+@media(min-width:700px){.hero{min-height:850px}.photo-frame{width:320px}.photo-frame img{height:450px}.wrap{padding:0 28px}}
+</style>
+</head>
+<body>
+<div id="stars"></div><div class="progress-track"><i id="progressBar"></i></div>
+<div class="wrap">
+<header class="hero">
+<div class="hero-glow"></div>
+<div class="hero-content">
+<div class="kicker">✦ A LITTLE SURPRISE FOR YOU ✦</div>
+<div class="hero-eyebrow">请问——</div>
+<h1>这是谁家的<br><em>小笨蛋呀？</em></h1>
+<div class="sub">怎么一不小心，就可爱成这样了</div>
+<div class="photo-frame">
+<div class="photo-sticker sticker-one">♡</div><div class="photo-sticker sticker-two">✦</div>
+<img id="herPhoto" src="data:image/jpeg;base64,在这里需要完整图片编码" alt="一张特别的照片">
+<div class="photo-caption">全世界限量款 · 仅此一位 ♡</div>
+</div>
+<p class="introline">本来想准备一个很厉害的惊喜，<br>结果第一眼还是只想先看看你。</p>
+<button class="pill hero-button" onclick="document.querySelector('#littleworld').scrollIntoView({behavior:'smooth'})">好啦，带你去看看　✦</button>
+<div class="hero-footnote">向下滑动 · 还有一些小心思</div>
+</div>
+<div class="scrollhint">↓　KEEP SCROLLING　↓</div>
+</header>
+
+<section id="littleworld">
+<div class="section-tag">01 · LITTLE FRIENDS</div>
+<h2>今天由小动物值班</h2>
+<p class="lead">如果不知道说什么，就让它们先替我表达一点点心意。</p>
+<div class="panel">
+<div class="animal-grid">
+<button class="animal" onclick="animalSay('兔兔说：不开心可以先休息一会儿，别忘了照顾自己。')"><span class="emoji">🐰</span><b>软乎乎兔兔</b><small>负责送来一点温柔</small></button>
+<button class="animal" onclick="animalSay('小熊说：有些话可能说得不够好，但认真对待你的心意是真的。')"><span class="emoji">🐻</span><b>慢吞吞小熊</b><small>负责认真听你说</small></button>
+<button class="animal" onclick="animalSay('猫猫说：今天也可以理直气壮地做自己。')"><span class="emoji">🐱</span><b>傲娇猫猫</b><small>负责偷偷关心你</small></button>
+<button class="animal" onclick="animalSay('小狗说：希望你每天都能遇见一点值得开心的小事。')"><span class="emoji">🐶</span><b>摇尾巴小狗</b><small>负责把快乐送到</small></button>
+</div>
+<div class="note" id="animalNote">点一点小动物，看看它们想说什么 ♡</div>
+</div>
+</section>
+
+<section>
+<div class="section-tag">02 · A LITTLE LETTER</div>
+<h2>有一封信想给你</h2>
+<p class="lead">不着急打开，等你想看的时候再看。</p>
+<div class="letter-wrap">
+<div class="envelope">
+<div class="seal">♡</div>
+<p>To. 特别的你</p>
+<button class="pill" onclick="toggleLetter()">拆开这封信　✉</button>
+</div>
+<div class="letter" id="letter">嗨，小笨蛋：
+
+有些时候，我可能没有把话说好，也可能没有及时照顾到你的感受。
+
+我想认真地说一声：对不起。
+
+我不想用漂亮的话把问题轻轻带过，也不想让你觉得自己的感受不重要。
+
+希望以后我们都能更坦诚一点，有什么想法就好好说。开心的时候一起分享，不开心的时候也可以慢慢讲。
+
+这份小网页不是什么了不起的礼物，只是想把一点认真和心意，做成你打开就能看见的样子。
+
+愿你今天有好心情，也愿每一个普通的日子都对你温柔一点。
+
+—— 一个还在学习怎么表达的人 ♡</div>
+</div>
+</section>
+
+<section>
+<div class="section-tag">03 · YOUR LITTLE WEATHER</div>
+<h2>今天的心情天气</h2>
+<p class="lead">选一个天气，让这颗小星球知道你现在的心情。</p>
+<div class="panel">
+<div class="weather-grid">
+<button class="weather" onclick="weatherSay('☀️ 晴天模式：把今天的小快乐收进口袋。')"><span>☀️</span><small>晴天</small></button>
+<button class="weather" onclick="weatherSay('☁️ 多云模式：慢一点也没关系，给自己一点空间。')"><span>☁️</span><small>多云</small></button>
+<button class="weather" onclick="weatherSay('🌧️ 雨天模式：不必强迫自己马上开心，先好好休息。')"><span>🌧️</span><small>下雨</small></button>
+<button class="weather" onclick="weatherSay('🌈 彩虹模式：希望接下来有好事发生。')"><span>🌈</span><small>彩虹</small></button>
+</div>
+<div class="note" id="weatherNote">选择今天的天气吧 ☁</div>
+</div>
+</section>
+
+<section>
+<div class="section-tag">04 · A TINY SURPRISE</div>
+<h2>还有一份小惊喜</h2>
+<p class="lead">里面装着一些随机掉落的小句子。</p>
+<div class="surprise">
+<span class="gift">🎁</span>
+<button class="pill" onclick="surprise()">打开礼物盒</button>
+<p id="surpriseText">会收到什么呢？</p>
+</div>
+</section>
+
+<section class="final">
+<div class="moon">🌙</div>
+<div class="section-tag">THE END? NOT REALLY.</div>
+<h2>小星球暂时逛到这里</h2>
+<p>希望你看到这里的时候，<br>心里能多一点点柔软和开心。</p>
+<p style="font-family:Georgia,serif;font-size:20px;color:#b77e8d">愿你一直有被爱与被珍惜的感觉 ♡</p>
+<button class="pill" onclick="window.scrollTo({top:0,behavior:'smooth'})">回到最开始 ↑</button>
+</section>
+<footer>MADE WITH CARE · JUST FOR YOU</footer>
+</div>
+
+<script>
+const progressBar=document.getElementById('progressBar');
+window.addEventListener('scroll',()=>{
+const max=document.documentElement.scrollHeight-innerHeight;
+progressBar.style.width=(max>0?scrollY/max*100:0)+'%'
+});
+const starBox=document.getElementById('stars');
+for(let i=0;i<34;i++){
+let s=document.createElement('span');
+s.className='spark';
+s.textContent=['✦','✧','·','♡'][i%4];
+s.style.left=Math.random()*100+'%';
+s.style.top=Math.random()*100+'%';
+s.style.fontSize=(9+Math.random()*13)+'px';
+s.style.animationDelay=(Math.random()*4)+'s';
+starBox.appendChild(s)
+}
+document.getElementById('herPhoto').addEventListener('click',e=>{
+const h=document.createElement('span');
+h.textContent='♡';
+h.style.cssText='position:fixed;left:'+e.clientX+'px;top:'+e.clientY+'px;z-index:30;color:#dc8da0;font-size:30px;pointer-events:none;animation:heartPop 1s ease forwards';
+document.body.appendChild(h);
+setTimeout(()=>h.remove(),1000)
+});
+function animalSay(t){document.getElementById('animalNote').textContent=t}
+function weatherSay(t){document.getElementById('weatherNote').textContent=t}
+function toggleLetter(){document.getElementById('letter').classList.toggle('show')}
+const surprises=[
+'记得喝水，也记得好好休息。',
+'今天也有人希望你开心。',
+'你可以慢慢来，不用事事都做到完美。',
+'愿你今天遇见一件小小的好事。',
+'别忘了，你的感受一直值得被认真对待。',
+'送你一颗看不见的小星星 ✦'
+];
+function surprise(){
+document.getElementById('surpriseText').textContent=surprises[Math.floor(Math.random()*surprises.length)]
+}
+</script>
+</body>
+</html>
